@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>灵狐近选 · AI云仓即时零售</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background: #fff; color: #1e2a3a; line-height: 1.5; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        
+        /* 导航栏 */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; flex-wrap: wrap; border-bottom: 1px solid #eef2f6; }
+        .logo { font-size: 28px; font-weight: 800; color: #e86a2c; }
+        .logo span { color: #2d5afe; }
+        .nav-links { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: #1e2a3a; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #e86a2c; }
+        .btn-outline { border: 1px solid #e86a2c; padding: 8px 20px; border-radius: 30px; color: #e86a2c; background: transparent; text-decoration: none; }
+        .btn-outline:hover { background: #e86a2c; color: white; }
+        .btn-solid { background: #e86a2c; color: white; padding: 8px 24px; border-radius: 30px; border: none; cursor: pointer; display: inline-block; text-decoration: none; }
+        .btn-solid:hover { background: #d45a1c; }
+        
+        /* Hero区域 */
+        .hero { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 60px 0 40px; gap: 40px; }
+        .hero-left { flex: 1; }
+        .hero-left h1 { font-size: 48px; line-height: 1.2; margin-bottom: 20px; }
+        .hero-left p { font-size: 18px; color: #4a627a; margin-bottom: 30px; }
+        .hero-right { flex: 1; background: linear-gradient(135deg, #e86a2c20, #2d5afe20); border-radius: 32px; min-height: 280px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
+        .mock-phone { width: 140px; height: 280px; background: #1e2a3a; border-radius: 24px; position: relative; box-shadow: 0 20px 35px -10px rgba(0,0,0,0.2); }
+        .mock-phone::before { content: "灵狐近选"; position: absolute; top: 12px; left: 0; right: 0; text-align: center; color: white; font-size: 12px; }
+        .btn-group { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+        @media (max-width: 768px) { .hero-left h1 { font-size: 32px; } .hero-right { min-height: 200px; } }
+        
+        /* 数据统计 */
+        .stats { background: #f8fafc; padding: 40px 0; border-radius: 48px; margin: 40px 0; }
+        .stats-grid { display: flex; flex-wrap: wrap; justify-content: space-around; text-align: center; gap: 24px; }
+        .stat-item h3 { font-size: 36px; color: #e86a2c; }
+        .stat-item p { color: #4a627a; }
+        
+        /* 业务卡片 */
+        .section-title { text-align: center; font-size: 32px; margin: 60px 0 40px; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; margin-bottom: 60px; }
+        .card { background: white; border-radius: 24px; padding: 28px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); text-align: center; border: 1px solid #eef2f6; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .card i { font-size: 48px; color: #2d5afe; margin-bottom: 20px; }
+        .card h3 { margin-bottom: 12px; }
+        .card p { color: #4a627a; margin-bottom: 20px; }
+        .card a { color: #e86a2c; text-decoration: none; font-weight: 600; }
+        
+        /* 优势区域 */
+        .advantage { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; margin: 60px 0; }
+        .advantage-img { flex: 1; background: linear-gradient(145deg, #e86a2c10, #2d5afe10); border-radius: 32px; min-height: 300px; display: flex; align-items: center; justify-content: center; font-size: 80px; color: #e86a2c; }
+        .advantage-text { flex: 1; }
+        .advantage-text ul { list-style: none; margin-top: 20px; }
+        .advantage-text li { margin: 16px 0; display: flex; align-items: center; gap: 12px; }
+        .advantage-text i { color: #e86a2c; width: 24px; }
+        
+        /* 新闻 */
+        .news-list { margin-bottom: 60px; }
+        .news-item { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid #eef2f6; flex-wrap: wrap; }
+        .news-item a { text-decoration: none; color: #1e2a3a; font-weight: 500; }
+        .news-date { color: #8ba0bc; }
+        
+        /* 底部 */
+        footer { background: #0f172a; color: #cbd5e1; padding: 48px 0 24px; margin-top: 60px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; margin-bottom: 32px; }
+        .footer-col h4 { color: white; margin-bottom: 16px; }
+        .footer-col a { display: block; color: #cbd5e1; text-decoration: none; margin: 8px 0; }
+        .copyright { text-align: center; border-top: 1px solid #1e293b; padding-top: 24px; }
+        .qr-placeholder { width: 80px; height: 80px; background: #2d3748; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #8ba0bc; font-size: 12px; text-align: center; }
+        @media (max-width: 768px) { .news-item { flex-direction: column; gap: 8px; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="navbar">
+        <div class="logo">灵狐<span>近选</span></div>
+        <div class="nav-links">
+            <a href="#">首页</a>
+            <a href="#">关于我们</a>
+            <a href="#">业务介绍</a>
+            <a href="#">成为仓主</a>
+            <a href="#">品牌入驻</a>
+            <a href="#">农户入驻</a>
+            <a href="#" class="btn-outline">品牌方登录</a>
+            <a href="#" class="btn-solid">下载APP</a>
+        </div>
+    </div>
+</div>
+
+<main>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-left">
+                <h1>30分钟好物到家<br>AI云仓 · 农户直供</h1>
+                <p>品牌商品30分钟极速达，农家自产好货直通餐桌。<br>成为仓主零库存创业，按单赚取作业费。</p>
+                <div class="btn-group">
+                    <a href="#" class="btn-solid" style="padding: 12px 32px;">下载灵狐APP</a>
+                    <a href="#" class="btn-outline" style="padding: 12px 32px;">成为仓主</a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="mock-phone"></div>
+                <div style="font-size: 14px; color: #4a627a;">扫码下载APP</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container stats">
+        <div class="stats-grid">
+            <div class="stat-item"><h3>12+</h3><p>覆盖城市</p></div>
+            <div class="stat-item"><h3>500+</h3><p>云仓数量</p></div>
+            <div class="stat-item"><h3>200+</h3><p>品牌方入驻</p></div>
+            <div class="stat-item"><h3>1500+</h3><p>农户入驻</p></div>
+            <div class="stat-item"><h3>5万+</h3><p>日均订单</p></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">灵狐生态 · 四端共赢</h2>
+        <div class="cards">
+            <div class="card"><i class="fas fa-shopping-bag"></i><h3>消费者</h3><p>30分钟极速送达，品牌直供、农家好货</p><a href="#">下载APP →</a></div>
+            <div class="card"><i class="fas fa-warehouse"></i><h3>仓主</h3><p>零库存创业，提供仓储作业服务，按单赚佣金</p><a href="#">成为仓主 →</a></div>
+            <div class="card"><i class="fas fa-chart-line"></i><h3>品牌方</h3><p>全渠道履约，使用灵狐云仓为多平台订单发货</p><a href="#">品牌入驻 →</a></div>
+            <div class="card"><i class="fas fa-seedling"></i><h3>农户</h3><p>免费开店，平台助力销售自产农产品</p><a href="#">农户入驻 →</a></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="advantage">
+            <div class="advantage-img"><i class="fas fa-microchip"></i> AI调度大脑</div>
+            <div class="advantage-text">
+                <h2>AI驱动云仓，重新定义即时零售</h2>
+                <ul>
+                    <li><i class="fas fa-microchip"></i> AI智能调度：订单秒级选仓，配送时效提升20%</li>
+                    <li><i class="fas fa-cloud-upload-alt"></i> 云仓即服务：品牌方动态铺货，零库存风险</li>
+                    <li><i class="fas fa-hand-holding-heart"></i> 农户赋能：零门槛开店，平台补贴物流</li>
+                    <li><i class="fas fa-globe"></i> 外单通：助力品牌方多渠道发货，降本增效</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">灵狐动态</h2>
+        <div class="news-list">
+            <div class="news-item"><a href="#">灵狐近选完成800万元天使轮融资</a><span class="news-date">2026-06-01</span></div>
+            <div class="news-item"><a href="#">“带份早餐”服务上线，邻里拼单可享免配送费</a><span class="news-date">2026-05-20</span></div>
+            <div class="news-item"><a href="#">灵狐AI项目经理正式发布，助力品牌方智能补货</a><span class="news-date">2026-05-10</span></div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>灵狐近选</h4>
+                <a href="#">关于我们</a>
+                <a href="#">加入我们</a>
+                <a href="#">联系我们</a>
+            </div>
+            <div class="footer-col">
+                <h4>业务合作</h4>
+                <a href="#">成为仓主</a>
+                <a href="#">品牌方入驻</a>
+                <a href="#">农户入驻</a>
+            </div>
+            <div class="footer-col">
+                <h4>帮助中心</h4>
+                <a href="#">新手指南</a>
+                <a href="#">常见问题</a>
+                <a href="#">隐私政策</a>
+            </div>
+            <div class="footer-col">
+                <h4>关注我们</h4>
+                <div style="display: flex; gap: 16px; font-size: 24px;">
+                    <i class="fab fa-weixin"></i>
+                    <i class="fab fa-weibo"></i>
+                    <i class="fab fa-tiktok"></i>
+                </div>
+                <div class="qr-placeholder" style="margin-top: 16px;">公众号二维码</div>
+                <p style="margin-top: 16px;">客服热线<br>400-xxx-xxxx</p>
+            </div>
+        </div>
+        <div class="copyright">© 2026 灵狐近选 版权所有 | 沪ICP备XXXXXX号</div>
+    </div>
+</footer>
+
+<script>
+    // 简单的数字动画（可选）
+    const stats = document.querySelectorAll('.stat-item h3');
+    const animateNumber = (el, target) => {
+        let current = 0;
+        const step = Math.ceil(target / 30);
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                el.innerText = target + (el.innerText.includes('+') ? '+' : '');
+                clearInterval(timer);
+            } else {
+                el.innerText = current + (el.innerText.includes('+') ? '+' : '');
+            }
+        }, 30);
+    };
+    // 可选：滚动时触发动画，这里简单延时执行
+    setTimeout(() => {
+        const nums = [12, 500, 200, 1500];
+        const elements = document.querySelectorAll('.stat-item h3');
+        elements.forEach((el, idx) => {
+            let val = nums[idx];
+            animateNumber(el, val);
+        });
+    }, 500);
+</script>
+</body>
+</html>
